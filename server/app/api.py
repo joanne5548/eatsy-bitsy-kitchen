@@ -1,12 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .generate_recipe import generate_recipe
+from .openai_api.generate import generate_recipe
 
 app = FastAPI()
 
 origins = [
-    "http://localhost:5170",
-    "localhost:5170",
+    "http://localhost:5173",
+    "localhost:5173",
+    "http://127.0.0.1:5173",
+    "127.0.0.1:5173"
 ]
 
 app.add_middleware(
@@ -14,7 +16,7 @@ app.add_middleware(
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
 
 def parse_ingredients(ingredients: list[str]) -> str:
@@ -30,10 +32,14 @@ def parse_ingredients(ingredients: list[str]) -> str:
 async def read_root() -> dict:
     return {"message": "Welcome to fast api!"}
 
-@app.get("/generate", tags=["generate"])
+@app.post("/generate", tags=["generate"])
 async def generate(options: dict) -> dict:
     ingredients_str = parse_ingredients(options["ingredients"])
-    recipe = generate_recipe(ingredients_str)
+    if (options["style"]):
+        recipe = generate_recipe(ingredients_str, options["style"].lower())
+    else:
+        recipe = generate_recipe(ingredients_str)
+    
     print(recipe)
 
     return recipe

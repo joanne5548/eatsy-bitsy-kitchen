@@ -1,9 +1,10 @@
 import { options, recipe } from "./interfaces";
 
-export const getResults = async (options: options) => {
+export const getResults = async (options: options, callback: () => void) => {
     try {
         const response = await fetch("http://localhost:8000/generate", {
-            method: "GET",
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(options)
         });
 
@@ -21,5 +22,8 @@ export const getResults = async (options: options) => {
         else {
             console.log(`unknown error: ${error}`)
         }
+    }
+    finally {
+        callback();
     }
 }

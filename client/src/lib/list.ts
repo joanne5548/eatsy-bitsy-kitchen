@@ -25,11 +25,16 @@ export const ingredients: string[] = [
 ];
 
 export const foodStyles: string[] = [
-    "With rice",
     "Noodles",
     "Hot soup",
     "Cold soup",
     "Stir Fry",
+];
+
+export const cookingTimes: string[] = [
+    "Within 30 minutes",
+    "30 minutes - an hour",
+    "More than an hour"
 ];
 
 export const colors: string[] = [
