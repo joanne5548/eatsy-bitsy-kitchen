@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { getResults } from "../lib/apis";
 import { ingredients, foodStyles } from "../lib/list";
-import InputButton from "./InputButton";
-import { useAtom } from "jotai";
-import { generatedRecipeAtom } from "../lib/atoms";
-import { PiSpinnerBold } from "react-icons/pi";
+import OptionButton from "./InputButton";
+import { useSetAtom } from "jotai";
+import { generatedRecipeAtom, generatingRecipeAtom } from "../lib/atoms";
 
 const OptionsPanel = () => {
     const [selectedIngredients, setSelectedIngredients] = useState<Set<string>>(
         new Set<string>()
     );
     const [style, setStyle] = useState<string | null>(null);
-    const [generatedRecipe, setGeneratedRecipe] = useAtom(generatedRecipeAtom);
-    const [generatingRecipe, setGeneratingRecipe] = useState<boolean>(false);
+    const setGeneratedRecipe = useSetAtom(generatedRecipeAtom);
+    const setGeneratingRecipe = useSetAtom(generatingRecipeAtom);
 
     const updateIngredients = (ingredient: string) => {
         let updatedSelectedIngredients = new Set<string>(selectedIngredients);
@@ -22,12 +21,17 @@ const OptionsPanel = () => {
             updatedSelectedIngredients.add(ingredient);
         }
 
-        console.log(updatedSelectedIngredients);
         setSelectedIngredients(updatedSelectedIngredients);
     };
 
-    const updateStyles = (style: string) => {
-        setStyle(style);
+    const updateStyles = (newStyle: string) => {
+        if (style === newStyle) {
+            console.log("null");
+            setStyle(null);
+        } else {
+            console.log(newStyle);
+            setStyle(newStyle);
+        }
     };
 
     const setGeneratingRecipeToFalse = () => {
@@ -61,7 +65,7 @@ const OptionsPanel = () => {
             </div>
             <div className="flex flex-wrap flex-row gap-2.5 w-full p-4 rounded-xl text-base border-[1px] border-slate-400">
                 {ingredients.map((ingredient) => (
-                    <InputButton
+                    <OptionButton
                         option={ingredient}
                         updateOptionList={updateIngredients}
                     />
@@ -70,7 +74,7 @@ const OptionsPanel = () => {
             <div className="text-xl">Select style (optional):</div>
             <div className="flex flex-wrap flex-row gap-2.5 w-full p-4 rounded-xl text-base border-[1px] border-slate-400">
                 {foodStyles.map((style) => (
-                    <InputButton
+                    <OptionButton
                         option={style}
                         updateOptionList={updateStyles}
                     />
@@ -81,9 +85,6 @@ const OptionsPanel = () => {
                 onClick={handleGenerateButtonClick}
                 className="flex flex-row gap-2 items-center w-fit self-end px-2 py-1 text-lg rounded-xl border-[1px] border-slate-400 hover:bg-slate-200 hover:cursor-pointer"
             >
-                {generatingRecipe && (
-                    <PiSpinnerBold className="animate-spin size-4" />
-                )}
                 Generate
             </button>
         </div>

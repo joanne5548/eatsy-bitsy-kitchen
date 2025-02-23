@@ -7,10 +7,7 @@ interface InputButtonProps {
     updateOptionList: (option: string) => void;
 }
 
-const InputButton = ({
-    option,
-    updateOptionList,
-}: InputButtonProps) => {
+const OptionButton = ({ option, updateOptionList }: InputButtonProps) => {
     const [clicked, setClicked] = useState<boolean>(false);
     const [color, setColor] = useState<string>("slate");
 
@@ -27,8 +24,8 @@ const InputButton = ({
         fuchsia: "border-fuchsia-400 hover:bg-fuchsia-200",
         pink: "border-pink-400 hover:bg-pink-200",
         rose: "border-rose-400 hover:bg-rose-200",
-    }
-    
+    };
+
     const backgroundOptions: colorOptions = {
         red: "bg-red-200",
         orange: "bg-orange-200",
@@ -42,9 +39,11 @@ const InputButton = ({
         fuchsia: "bg-fuchsia-200",
         pink: "bg-pink-200",
         rose: "bg-rose-200",
-    }
+    };
 
-    let className = `w-fit px-1.5 py-1 rounded-xl border-[1px] ${colorOptions[color as keyof colorOptions]} hover:cursor-pointer `;
+    let className = `w-fit px-1.5 py-1 rounded-xl border-[1px] ${
+        colorOptions[color as keyof colorOptions]
+    } hover:cursor-pointer `;
     if (clicked) {
         className += `${backgroundOptions[color as keyof colorOptions]}`;
     }
@@ -56,7 +55,6 @@ const InputButton = ({
 
     useEffect(() => {
         const color = generateColor();
-        // console.log(color);
         setColor(color);
     }, []);
 
@@ -67,4 +65,4 @@ const InputButton = ({
     );
 };
 
-export default InputButton;
+export default OptionButton;

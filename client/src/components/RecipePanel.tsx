@@ -1,8 +1,10 @@
 import { useAtomValue } from "jotai";
-import { generatedRecipeAtom } from "../lib/atoms";
+import { generatedRecipeAtom, generatingRecipeAtom } from "../lib/atoms";
+import { PiSpinnerBold } from "react-icons/pi";
 
 const RecipePanel = () => {
     const generatedRecipe = useAtomValue(generatedRecipeAtom);
+    const generatingRecipe = useAtomValue(generatingRecipeAtom);
 
     return (
         <div className="w-1/2 h-full overflow-y-auto">
@@ -28,7 +30,16 @@ const RecipePanel = () => {
                 </div>
             ) : (
                 <div className="flex h-full justify-center items-center">
-                    <div className="text-lg">Click generate to see recipe!</div>
+                    {generatingRecipe ? (
+                        <div className="text-lg">
+                            <PiSpinnerBold className="inline animate-spin size-4.5 mr-2 align-baseline" />
+                            Generating Recipe...
+                        </div>
+                    ) : (
+                        <div className="text-lg">
+                            Click generate to see the recipe!
+                        </div>
+                    )}
                 </div>
             )}
         </div>
