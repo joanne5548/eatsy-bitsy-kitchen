@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { generateColor } from "../lib/randomColor";
 import { ColorOptions } from "../lib/interfaces";
 
-interface InputButtonProps {
+interface OptionButtonProps {
     buttonName: string;
     selected: boolean;
     updateOptionList: () => void;
@@ -12,7 +12,7 @@ const OptionButton = ({
     buttonName,
     selected,
     updateOptionList,
-}: InputButtonProps) => {
+}: OptionButtonProps) => {
     const [color, setColor] = useState<string>("slate");
 
     const colorOptions: ColorOptions = {
@@ -45,7 +45,7 @@ const OptionButton = ({
         rose: "bg-rose-200",
     };
 
-    let className = `w-fit px-1.5 py-1 rounded-xl border-[1px] ${
+    let className = `w-fit px-1.5 py-1 text-sm sm:text-base rounded-xl border-[1px] ${
         colorOptions[color as keyof ColorOptions]
     } hover:cursor-pointer `;
     if (selected) {

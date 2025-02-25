@@ -21,8 +21,7 @@ def parse_ingredients(ingredients: list[str]) -> str:
     for i in range(0, len(ingredients) - 1):
         ingredients_str += ingredients[i] + ", "
     ingredients_str += ingredients[-1]
-
-    print(ingredients_str)
+    
     return ingredients_str
 
 def generate_recipe(options: InputOptions):

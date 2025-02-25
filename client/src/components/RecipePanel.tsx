@@ -7,7 +7,7 @@ const RecipePanel = () => {
     const generatingRecipe = useAtomValue(generatingRecipeAtom);
 
     return (
-        <div className="w-1/2 h-full overflow-y-auto">
+        <div className="sm:w-1/2 h-full sm:overflow-y-auto">
             {generatedRecipe ? (
                 <div className="flex flex-col gap-2 h-full">
                     <div className="text-[22px]">{generatedRecipe.name}</div>

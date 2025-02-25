@@ -50,7 +50,7 @@ const OptionsPanel = () => {
             alert("Please select ingredients to generate recipe.")
             return;
         }
-        
+
         let options: InputOptions = {
             ingredients: [...selectedIngredients],
         };
@@ -80,12 +80,12 @@ const OptionsPanel = () => {
     };
 
     return (
-        <div className="flex flex-col gap-2 w-1/2">
+        <div className="flex flex-col gap-2 pb-4 border-b-2 border-slate-200 sm:w-1/2">
             <div className="flex flex-row justify-between items-center">
-                <div className="text-xl">Select ingredients:</div>
+                <div className="text-lg sm:text-xl">Select ingredients:</div>
                 <button
                     onClick={handleClearButtonClick}
-                    className="px-2 py-1 rounded-xl text-lg border-[1px] border-slate-400 hover:bg-slate-200 hover:cursor-pointer"
+                    className="px-2 py-1 rounded-xl text-base sm:text-lg border-[1px] border-slate-400 hover:bg-slate-200 hover:cursor-pointer"
                 >
                     Clear
                 </button>
@@ -100,7 +100,7 @@ const OptionsPanel = () => {
                     />
                 ))}
             </div>
-            <div className="text-xl">Select style (optional):</div>
+            <div className="text-lg sm:text-xl">Select style (optional):</div>
             <div className="flex flex-wrap flex-row gap-2.5 w-full p-4 rounded-xl text-base border-[1px] border-slate-400">
                 {foodStyles.map((style) => (
                     <OptionButton
@@ -111,10 +111,9 @@ const OptionsPanel = () => {
                     />
                 ))}
             </div>
-
             <button
                 onClick={handleGenerateButtonClick}
-                className="flex flex-row gap-2 items-center w-fit self-end px-2 py-1 text-lg rounded-xl border-[1px] border-slate-400 hover:bg-slate-200 hover:cursor-pointer"
+                className="flex flex-row gap-2 items-center w-fit self-end px-2 py-1 text-base sm:text-lg rounded-xl border-[1px] border-slate-400 hover:bg-slate-200 hover:cursor-pointer"
             >
                 Generate
             </button>

@@ -25,7 +25,5 @@ async def read_root() -> dict:
 @app.post("/generate", tags=["generate"])
 async def generate(options: InputOptions) -> Recipe:
     recipe = generate_recipe(options)
-    
-    print(recipe)
 
     return recipe
