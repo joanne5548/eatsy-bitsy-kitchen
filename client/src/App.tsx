@@ -8,14 +8,14 @@ function App() {
     const generatedRecipe = useAtomValue(generatedRecipeAtom);
 
     return (
-        <div className="flex flex-col gap-8 px-8 py-4 h-screen items-center">
+        <div className="flex flex-col gap-8 px-8 py-4 sm:h-screen items-center">
             <div className="text-4xl font-medium">
                 Welcome to Recipe Generator!
             </div>
             <div
                 className={clsx(
-                    "flex flex-row gap-8",
-                    generatedRecipe && "justify-between"
+                    "flex flex-col sm:flex-row gap-8 sm:h-[calc(100%-73px)]",
+                    generatedRecipe && "sm:justify-between"
                 )}
             >
                 <OptionsPanel />

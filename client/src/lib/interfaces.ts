@@ -7,9 +7,9 @@ export interface InputOptions {
 
 export interface Recipe {
     name: string;
-    time: string;
+    cook_time: string;
     steps: string[];
-    img_url: string;
+    img_url: string | null;
 }
 
 export interface ColorOptions {

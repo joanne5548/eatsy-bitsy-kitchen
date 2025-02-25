@@ -10,7 +10,7 @@ const OptionsPanel = () => {
     const [selectedIngredients, setSelectedIngredients] = useState<Set<string>>(
         new Set<string>()
     );
-    const [style, setStyle] = useState<string | null>(null);
+    const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
     const setGeneratedRecipe = useSetAtom(generatedRecipeAtom);
     const setGeneratingRecipe = useSetAtom(generatingRecipeAtom);
 
@@ -26,12 +26,12 @@ const OptionsPanel = () => {
     };
 
     const updateStyles = (newStyle: string) => {
-        if (style === newStyle) {
+        if (selectedStyle === newStyle) {
             console.log("null");
-            setStyle(null);
+            setSelectedStyle(null);
         } else {
             console.log(newStyle);
-            setStyle(newStyle);
+            setSelectedStyle(newStyle);
         }
     };
 
@@ -39,15 +39,26 @@ const OptionsPanel = () => {
         setGeneratingRecipe(false);
     };
 
+    const handleClearButtonClick = () => {
+        const emptySelectedIngredients = new Set<string>();
+        setSelectedIngredients(emptySelectedIngredients);
+        setSelectedStyle(null);
+    };
+
     const handleGenerateButtonClick = async () => {
+        if (!selectedIngredients.size) {
+            alert("Please select ingredients to generate recipe.")
+            return;
+        }
+        
         let options: InputOptions = {
             ingredients: [...selectedIngredients],
         };
-        if (style) {
+        if (selectedStyle) {
             options = {
                 ...options,
-                style: style
-            }
+                style: selectedStyle,
+            };
         }
         // if (cookTime) {
         //     options = {
@@ -57,6 +68,7 @@ const OptionsPanel = () => {
         // }
         console.log(options);
 
+        setGeneratedRecipe(null);
         setGeneratingRecipe(true);
         const recipe = await getResults(options, setGeneratingRecipeToFalse);
 
@@ -71,15 +83,20 @@ const OptionsPanel = () => {
         <div className="flex flex-col gap-2 w-1/2">
             <div className="flex flex-row justify-between items-center">
                 <div className="text-xl">Select ingredients:</div>
-                <button className="px-2 py-1 rounded-xl text-lg border-[1px] border-slate-400 hover:bg-slate-200 hover:cursor-pointer">
+                <button
+                    onClick={handleClearButtonClick}
+                    className="px-2 py-1 rounded-xl text-lg border-[1px] border-slate-400 hover:bg-slate-200 hover:cursor-pointer"
+                >
                     Clear
                 </button>
             </div>
             <div className="flex flex-wrap flex-row gap-2.5 w-full p-4 rounded-xl text-base border-[1px] border-slate-400">
                 {ingredients.map((ingredient) => (
                     <OptionButton
-                        option={ingredient}
-                        updateOptionList={updateIngredients}
+                        key={ingredient}
+                        buttonName={ingredient}
+                        selected={selectedIngredients.has(ingredient)}
+                        updateOptionList={(() => updateIngredients(ingredient))}
                     />
                 ))}
             </div>
@@ -87,8 +104,10 @@ const OptionsPanel = () => {
             <div className="flex flex-wrap flex-row gap-2.5 w-full p-4 rounded-xl text-base border-[1px] border-slate-400">
                 {foodStyles.map((style) => (
                     <OptionButton
-                        option={style}
-                        updateOptionList={updateStyles}
+                        key={style}
+                        buttonName={style}
+                        selected={style === selectedStyle}
+                        updateOptionList={(() => updateStyles(style))}
                     />
                 ))}
             </div>

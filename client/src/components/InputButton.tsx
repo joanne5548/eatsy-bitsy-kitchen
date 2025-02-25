@@ -3,12 +3,16 @@ import { generateColor } from "../lib/randomColor";
 import { ColorOptions } from "../lib/interfaces";
 
 interface InputButtonProps {
-    option: string;
-    updateOptionList: (option: string) => void;
+    buttonName: string;
+    selected: boolean;
+    updateOptionList: () => void;
 }
 
-const OptionButton = ({ option, updateOptionList }: InputButtonProps) => {
-    const [clicked, setClicked] = useState<boolean>(false);
+const OptionButton = ({
+    buttonName,
+    selected,
+    updateOptionList,
+}: InputButtonProps) => {
     const [color, setColor] = useState<string>("slate");
 
     const colorOptions: ColorOptions = {
@@ -44,13 +48,12 @@ const OptionButton = ({ option, updateOptionList }: InputButtonProps) => {
     let className = `w-fit px-1.5 py-1 rounded-xl border-[1px] ${
         colorOptions[color as keyof ColorOptions]
     } hover:cursor-pointer `;
-    if (clicked) {
+    if (selected) {
         className += `${backgroundOptions[color as keyof ColorOptions]}`;
     }
 
     const handleOnClick = () => {
-        updateOptionList(option);
-        setClicked(!clicked);
+        updateOptionList();
     };
 
     useEffect(() => {
@@ -60,7 +63,7 @@ const OptionButton = ({ option, updateOptionList }: InputButtonProps) => {
 
     return (
         <button onClick={handleOnClick} className={className}>
-            {option}
+            {buttonName}
         </button>
     );
 };

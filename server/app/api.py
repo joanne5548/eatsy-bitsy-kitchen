@@ -18,26 +18,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-def parse_ingredients(ingredients: list[str]) -> str:
-    ingredients_str = ""
-    for i in range(0, len(ingredients) - 1):
-        ingredients_str += ingredients[i] + ", "
-    ingredients_str += ingredients[-1]
-
-    print(ingredients_str)
-    return ingredients_str
-
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
     return {"message": "Welcome to fast api!"}
 
 @app.post("/generate", tags=["generate"])
 async def generate(options: InputOptions) -> Recipe:
-    ingredients_str = parse_ingredients(options.ingredients)
-    if (options.style):
-        recipe = generate_recipe(ingredients_str, options.style.lower())
-    else:
-        recipe = generate_recipe(ingredients_str)
+    recipe = generate_recipe(options)
     
     print(recipe)
 
