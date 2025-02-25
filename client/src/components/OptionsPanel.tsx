@@ -4,6 +4,7 @@ import { ingredients, foodStyles } from "../lib/list";
 import OptionButton from "./InputButton";
 import { useSetAtom } from "jotai";
 import { generatedRecipeAtom, generatingRecipeAtom } from "../lib/atoms";
+import { InputOptions } from "../lib/interfaces";
 
 const OptionsPanel = () => {
     const [selectedIngredients, setSelectedIngredients] = useState<Set<string>>(
@@ -39,10 +40,21 @@ const OptionsPanel = () => {
     };
 
     const handleGenerateButtonClick = async () => {
-        const options = {
+        let options: InputOptions = {
             ingredients: [...selectedIngredients],
-            style: style,
         };
+        if (style) {
+            options = {
+                ...options,
+                style: style
+            }
+        }
+        // if (cookTime) {
+        //     options = {
+        //         ...options,
+        //         cookTime: cookTime
+        //     }
+        // }
         console.log(options);
 
         setGeneratingRecipe(true);

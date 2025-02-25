@@ -37,7 +37,7 @@ const RecipePanel = () => {
                         </div>
                     ) : (
                         <div className="text-lg">
-                            Click generate to see the recipe!
+                            Click generate to see the recipe :D
                         </div>
                     )}
                 </div>

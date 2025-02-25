@@ -1,15 +1,18 @@
-export interface options {
+export interface InputOptions {
     ingredients: string[];
+    style?: string;
+    cookTime?: string;
+    // TODO: insert style and cook time as optional - then finish type hinting in data_model.py
 }
 
-export interface recipe {
+export interface Recipe {
     name: string;
     time: string;
     steps: string[];
     img_url: string;
 }
 
-export interface colorOptions {
+export interface ColorOptions {
     red: string;
     orange: string;
     amber: string;

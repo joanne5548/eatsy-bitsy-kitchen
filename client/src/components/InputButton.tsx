@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { generateColor } from "../lib/randomColor";
-import { colorOptions } from "../lib/interfaces";
+import { ColorOptions } from "../lib/interfaces";
 
 interface InputButtonProps {
     option: string;
@@ -11,7 +11,7 @@ const OptionButton = ({ option, updateOptionList }: InputButtonProps) => {
     const [clicked, setClicked] = useState<boolean>(false);
     const [color, setColor] = useState<string>("slate");
 
-    const colorOptions: colorOptions = {
+    const colorOptions: ColorOptions = {
         red: "border-red-400 hover:bg-red-200",
         orange: "border-orange-400 hover:bg-orange-200",
         amber: "border-amber-400 hover:bg-amber-200",
@@ -26,7 +26,7 @@ const OptionButton = ({ option, updateOptionList }: InputButtonProps) => {
         rose: "border-rose-400 hover:bg-rose-200",
     };
 
-    const backgroundOptions: colorOptions = {
+    const backgroundOptions: ColorOptions = {
         red: "bg-red-200",
         orange: "bg-orange-200",
         amber: "bg-amber-200",
@@ -42,10 +42,10 @@ const OptionButton = ({ option, updateOptionList }: InputButtonProps) => {
     };
 
     let className = `w-fit px-1.5 py-1 rounded-xl border-[1px] ${
-        colorOptions[color as keyof colorOptions]
+        colorOptions[color as keyof ColorOptions]
     } hover:cursor-pointer `;
     if (clicked) {
-        className += `${backgroundOptions[color as keyof colorOptions]}`;
+        className += `${backgroundOptions[color as keyof ColorOptions]}`;
     }
 
     const handleOnClick = () => {
