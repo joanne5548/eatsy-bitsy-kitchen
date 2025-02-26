@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { getResults } from "../lib/apis";
 import { ingredients, foodStyles, cookTime } from "../lib/list";
-import OptionButton from "./InputButton";
+import OptionButton from "./OptionButton";
 import { useSetAtom } from "jotai";
 import { generatedRecipeAtom, generatingRecipeAtom } from "../lib/atoms";
 import { InputOptions } from "../lib/interfaces";
+import CustomInputButton from "./CustomInputButton";
 
 const OptionsPanel = () => {
     const [selectedIngredients, setSelectedIngredients] = useState<Set<string>>(
@@ -109,6 +110,7 @@ const OptionsPanel = () => {
                         updateOptionList={() => updateIngredients(ingredient)}
                     />
                 ))}
+                <CustomInputButton />
             </div>
             <div className="text-lg sm:text-xl">Select style (optional):</div>
             <div className="flex flex-wrap flex-row gap-2.5 w-full p-4 rounded-xl text-base border-[1px] border-slate-400">
