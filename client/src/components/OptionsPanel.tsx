@@ -15,10 +15,15 @@ const OptionsPanel = () => {
     const [selectedCookTime, setSelectedCookTime] = useState<string | null>(
         null
     );
+
+    const [addedIngredientsList, setAddedIngredientsList] = useState<string[]>(
+        []
+    );
+
     const setGeneratedRecipe = useSetAtom(generatedRecipeAtom);
     const setGeneratingRecipe = useSetAtom(generatingRecipeAtom);
 
-    const updateIngredients = (ingredient: string) => {
+    const updateSelectedIngredients = (ingredient: string) => {
         let updatedSelectedIngredients = new Set<string>(selectedIngredients);
         if (updatedSelectedIngredients.has(ingredient)) {
             updatedSelectedIngredients.delete(ingredient);
@@ -37,15 +42,16 @@ const OptionsPanel = () => {
             setSelectedStyle(newStyle);
         }
     };
-    
+
     const updateCookTime = (newCookTime: string) => {
         if (selectedStyle === newCookTime) {
             setSelectedCookTime(null);
         } else {
             setSelectedCookTime(newCookTime);
         }
-    }
+    };
 
+    // replace this with atom
     const setGeneratingRecipeToFalse = () => {
         setGeneratingRecipe(false);
     };
@@ -54,6 +60,7 @@ const OptionsPanel = () => {
         const emptySelectedIngredients = new Set<string>();
         setSelectedIngredients(emptySelectedIngredients);
         setSelectedStyle(null);
+        setAddedIngredientsList([]);
     };
 
     const handleGenerateButtonClick = async () => {
@@ -107,10 +114,30 @@ const OptionsPanel = () => {
                         key={ingredient}
                         buttonName={ingredient}
                         selected={selectedIngredients.has(ingredient)}
-                        updateOptionList={() => updateIngredients(ingredient)}
+                        updateOptionList={() =>
+                            updateSelectedIngredients(ingredient)
+                        }
                     />
                 ))}
-                <CustomInputButton />
+                {addedIngredientsList.map((ingredient) => (
+                    <OptionButton
+                        key={ingredient}
+                        buttonName={ingredient}
+                        selected={selectedIngredients.has(ingredient)}
+                        updateOptionList={() =>
+                            updateSelectedIngredients(ingredient)
+                        }
+                    />
+                ))}
+                <CustomInputButton
+                    addNewIngredient={(ingredient: string) => {
+                        updateSelectedIngredients(ingredient);
+                        setAddedIngredientsList([
+                            ...addedIngredientsList,
+                            ingredient,
+                        ]);
+                    }}
+                />
             </div>
             <div className="text-lg sm:text-xl">Select style (optional):</div>
             <div className="flex flex-wrap flex-row gap-2.5 w-full p-4 rounded-xl text-base border-[1px] border-slate-400">

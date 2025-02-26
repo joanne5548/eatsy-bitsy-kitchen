@@ -8,7 +8,7 @@ function App() {
     const generatedRecipe = useAtomValue(generatedRecipeAtom);
 
     return (
-        <div className="flex flex-col gap-4 sm:gap-8 px-8 py-4 sm:h-screen items-center">
+        <div className="flex flex-col gap-4 sm:gap-8 pl-8 pr-4 py-4 sm:h-screen items-center">
             <div className="text-2xl sm:text-4xl font-medium">
                 Welcome to Recipe Generator!
             </div>
