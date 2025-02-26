@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getResults } from "../lib/apis";
-import { ingredients, foodStyles } from "../lib/list";
+import { ingredients, foodStyles, cookTime } from "../lib/list";
 import OptionButton from "./InputButton";
 import { useSetAtom } from "jotai";
 import { generatedRecipeAtom, generatingRecipeAtom } from "../lib/atoms";
@@ -11,6 +11,9 @@ const OptionsPanel = () => {
         new Set<string>()
     );
     const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
+    const [selectedCookTime, setSelectedCookTime] = useState<string | null>(
+        null
+    );
     const setGeneratedRecipe = useSetAtom(generatedRecipeAtom);
     const setGeneratingRecipe = useSetAtom(generatingRecipeAtom);
 
@@ -27,13 +30,20 @@ const OptionsPanel = () => {
 
     const updateStyles = (newStyle: string) => {
         if (selectedStyle === newStyle) {
-            console.log("null");
             setSelectedStyle(null);
         } else {
             console.log(newStyle);
             setSelectedStyle(newStyle);
         }
     };
+    
+    const updateCookTime = (newCookTime: string) => {
+        if (selectedStyle === newCookTime) {
+            setSelectedCookTime(null);
+        } else {
+            setSelectedCookTime(newCookTime);
+        }
+    }
 
     const setGeneratingRecipeToFalse = () => {
         setGeneratingRecipe(false);
@@ -47,7 +57,7 @@ const OptionsPanel = () => {
 
     const handleGenerateButtonClick = async () => {
         if (!selectedIngredients.size) {
-            alert("Please select ingredients to generate recipe.")
+            alert("Please select ingredients to generate recipe.");
             return;
         }
 
@@ -60,12 +70,12 @@ const OptionsPanel = () => {
                 style: selectedStyle,
             };
         }
-        // if (cookTime) {
-        //     options = {
-        //         ...options,
-        //         cookTime: cookTime
-        //     }
-        // }
+        if (selectedCookTime) {
+            options = {
+                ...options,
+                cook_time: selectedCookTime,
+            };
+        }
         console.log(options);
 
         setGeneratedRecipe(null);
@@ -80,7 +90,7 @@ const OptionsPanel = () => {
     };
 
     return (
-        <div className="flex flex-col gap-2 pb-4 border-b-2 border-slate-200 sm:w-1/2">
+        <div className="flex flex-col gap-2 pb-4 border-b-2 border-slate-200 sm:border-b-0 sm:w-1/2">
             <div className="flex flex-row justify-between items-center">
                 <div className="text-lg sm:text-xl">Select ingredients:</div>
                 <button
@@ -96,7 +106,7 @@ const OptionsPanel = () => {
                         key={ingredient}
                         buttonName={ingredient}
                         selected={selectedIngredients.has(ingredient)}
-                        updateOptionList={(() => updateIngredients(ingredient))}
+                        updateOptionList={() => updateIngredients(ingredient)}
                     />
                 ))}
             </div>
@@ -107,7 +117,20 @@ const OptionsPanel = () => {
                         key={style}
                         buttonName={style}
                         selected={style === selectedStyle}
-                        updateOptionList={(() => updateStyles(style))}
+                        updateOptionList={() => updateStyles(style)}
+                    />
+                ))}
+            </div>
+            <div className="text-lg sm:text-xl">
+                Select cook time (optional):
+            </div>
+            <div className="flex flex-wrap flex-row gap-2.5 w-full p-4 rounded-xl text-base border-[1px] border-slate-400">
+                {cookTime.map((time) => (
+                    <OptionButton
+                        key={time}
+                        buttonName={time}
+                        selected={time === selectedCookTime}
+                        updateOptionList={() => updateCookTime(time)}
                     />
                 ))}
             </div>

@@ -1,8 +1,7 @@
 export interface InputOptions {
     ingredients: string[];
     style?: string;
-    cookTime?: string;
-    // TODO: insert style and cook time as optional - then finish type hinting in data_model.py
+    cook_time?: string;
 }
 
 export interface Recipe {

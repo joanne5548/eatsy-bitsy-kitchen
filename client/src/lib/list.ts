@@ -6,6 +6,7 @@ export const ingredients: string[] = [
     "Carrot",
     "Cucumber",
     "Zucchini",
+    "Bok Choy",
     "Green Onion",
     "Garlic",
     "Ginger",
@@ -30,10 +31,10 @@ export const foodStyles: string[] = [
     "Stir Fry",
 ];
 
-export const cookingTimes: string[] = [
+export const cookTime: string[] = [
     "Within 30 minutes",
     "30 minutes - an hour",
-    "More than an hour"
+    "More than an hour",
 ];
 
 export const colors: string[] = [

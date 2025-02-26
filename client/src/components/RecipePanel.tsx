@@ -11,12 +11,16 @@ const RecipePanel = () => {
             {generatedRecipe ? (
                 <div className="flex flex-col gap-2 h-full">
                     <div className="text-[22px]">{generatedRecipe.name}</div>
-                    {generatedRecipe.img_url && <img
-                        src={generatedRecipe.img_url}
-                        className="self-center w-full max-w-[40rem] h-1/6 object-cover rounded-xl"
-                    />}
-                    <div className="text-lg self-end">
-                        {generatedRecipe.cook_time}
+                    <div className="flex flex-col gap-2 sm:flex-row sm:justify-between">
+                        {generatedRecipe.img_url && (
+                            <img
+                                src={generatedRecipe.img_url}
+                                className="self-center object-cover rounded-xl"
+                            />
+                        )}
+                        <div className="text-lg self-end">
+                            {generatedRecipe.cook_time}
+                        </div>
                     </div>
                     <div className="flex flex-col gap-1">
                         {generatedRecipe.steps.map((step, index) => {
