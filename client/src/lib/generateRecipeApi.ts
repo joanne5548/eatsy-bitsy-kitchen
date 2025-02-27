@@ -11,6 +11,7 @@ export const generateRecipe = async (
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(options),
+            redirect: 'error'
         });
 
         if (!response.ok) {
