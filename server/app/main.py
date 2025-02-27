@@ -2,13 +2,15 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import generate
 
-app = FastAPI()
+app = FastAPI(root_path="/", docs_url="/docs")
 
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "https://eatsy-bitsy-kitchen-git-main-joanne5548s-projects.vercel.app/",
+    "http://eatsy-bitsy-kitchen-git-main-joanne5548s-projects.vercel.app/",
     "https://kitchen.joannekim.dev",
+    "http://kitchen.joannekim.dev",
 ]
 
 app.add_middleware(
