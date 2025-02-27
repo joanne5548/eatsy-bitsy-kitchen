@@ -7,9 +7,9 @@ const RecipePanel = () => {
     const generatingRecipe = useAtomValue(generatingRecipeAtom);
 
     return (
-        <div className="border-[1px] border-slate-400 rounded-xl sm:w-1/2 h-full py-2 px-2 sm:pr-4 sm:overflow-y-auto">
+        <div className="relative sm:w-1/2 flex-1 flex flex-col py-2 px-2 sm:pr-4 rounded-xl sm:border-[1px] border-slate-400 sm:overflow-hidden">
             {generatedRecipe ? (
-                <div className="flex flex-col gap-2 h-full">
+                <div className="absolute inset-0 p-2 flex flex-col gap-2 sm:overflow-y-auto">
                     <div className="text-[22px]">{generatedRecipe.name}</div>
                     <div className="flex flex-col gap-2 sm:flex-row sm:justify-between">
                         {generatedRecipe.img_url && (
@@ -33,14 +33,14 @@ const RecipePanel = () => {
                     </div>
                 </div>
             ) : (
-                <div className="flex h-full justify-center items-center">
+                <div className="flex flex-1 justify-center items-center">
                     {generatingRecipe ? (
                         <div className="text-lg">
                             <PiSpinnerBold className="inline animate-spin size-4.5 mr-2 align-baseline" />
                             Generating Recipe...
                         </div>
                     ) : (
-                        <div className="text-lg">
+                        <div className="text-base sm:text-lg">
                             Click generate to see the recipe :D
                         </div>
                     )}
