@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { generatedRecipeAtom, generatingRecipeAtom } from "../lib/atoms";
-import { getResults } from "../lib/apis";
+import { generateRecipe } from "../lib/generateRecipeApi";
 import { InputOptions } from "../lib/interfaces";
 import { ingredients, foodStyles, cookTime } from "../lib/list";
 import { useSetAtom } from "jotai";
@@ -58,8 +58,9 @@ const OptionsPanel = () => {
     const handleClearButtonClick = () => {
         const emptySelectedIngredients = new Set<string>();
         setSelectedIngredients(emptySelectedIngredients);
-        setSelectedStyle(null);
         setAddedIngredientsList([]);
+        setSelectedStyle(null);
+        setSelectedCookTime(null);
     };
 
     const handleGenerateButtonClick = async () => {
@@ -77,7 +78,10 @@ const OptionsPanel = () => {
 
         setGeneratedRecipe(null);
         setGeneratingRecipe(true);
-        const recipe = await getResults(options, setGeneratingRecipeToFalse);
+        const recipe = await generateRecipe(
+            options,
+            setGeneratingRecipeToFalse
+        );
 
         if (!recipe) {
             throw new Error("The recipe returned is invalid.");

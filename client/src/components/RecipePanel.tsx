@@ -25,7 +25,7 @@ const RecipePanel = () => {
                     <div className="flex flex-col gap-1">
                         {generatedRecipe.steps.map((step, index) => {
                             return (
-                                <div className="text-base">
+                                <div key={index} className="text-base">
                                     {index + 1}. {step}
                                 </div>
                             );
