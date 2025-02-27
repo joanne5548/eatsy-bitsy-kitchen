@@ -38,7 +38,6 @@ const OptionsPanel = () => {
         if (selectedStyle === newStyle) {
             setSelectedStyle(null);
         } else {
-            console.log(newStyle);
             setSelectedStyle(newStyle);
         }
     };
