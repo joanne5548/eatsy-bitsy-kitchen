@@ -21,6 +21,7 @@ export const ingredients: string[] = [
     "Gochujang",
     "Sesame Oil",
     "Soy Sauce",
+    "Oyster Sauce",
     "Rice Vinegar",
 ];
 
