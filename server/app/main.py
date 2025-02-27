@@ -7,6 +7,8 @@ app = FastAPI()
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://eatsy-bitsy-kitchen-git-main-joanne5548s-projects.vercel.app/",
+    "https://kitchen.joannekim.dev",
 ]
 
 app.add_middleware(
