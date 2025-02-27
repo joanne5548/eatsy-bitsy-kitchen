@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { getResults } from "../lib/apis";
-import { ingredients, foodStyles, cookTime } from "../lib/list";
-import OptionButton from "./OptionButton";
-import { useSetAtom } from "jotai";
 import { generatedRecipeAtom, generatingRecipeAtom } from "../lib/atoms";
+import { getResults } from "../lib/apis";
 import { InputOptions } from "../lib/interfaces";
+import { ingredients, foodStyles, cookTime } from "../lib/list";
+import { useSetAtom } from "jotai";
+import OptionButton from "./OptionButton";
 import CustomInputButton from "./CustomInputButton";
 
 const OptionsPanel = () => {
@@ -51,7 +51,6 @@ const OptionsPanel = () => {
         }
     };
 
-    // replace this with atom
     const setGeneratingRecipeToFalse = () => {
         setGeneratingRecipe(false);
     };
@@ -69,21 +68,11 @@ const OptionsPanel = () => {
             return;
         }
 
-        let options: InputOptions = {
+        const options: InputOptions = {
             ingredients: [...selectedIngredients],
+            ...(selectedStyle && { style: selectedStyle }),
+            ...(selectedCookTime && { cook_time: selectedCookTime }),
         };
-        if (selectedStyle) {
-            options = {
-                ...options,
-                style: selectedStyle,
-            };
-        }
-        if (selectedCookTime) {
-            options = {
-                ...options,
-                cook_time: selectedCookTime,
-            };
-        }
         console.log(options);
 
         setGeneratedRecipe(null);
@@ -96,6 +85,16 @@ const OptionsPanel = () => {
 
         setGeneratedRecipe(recipe);
     };
+
+    // const selectionSection = ({
+    //     optionList,
+    //     isSelected,
+    //     updateOptionList,
+    //     children=null
+    // } => (
+    //     <></>
+    // )
+    // );
 
     return (
         <div className="flex flex-col gap-2 pb-4 border-b-2 border-slate-200 sm:border-b-0 sm:w-1/2">
