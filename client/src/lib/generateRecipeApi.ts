@@ -1,6 +1,6 @@
 import { InputOptions, Recipe } from "./interfaces";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const generateRecipe = async (
     options: InputOptions,
