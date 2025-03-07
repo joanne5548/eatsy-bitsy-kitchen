@@ -5,6 +5,8 @@ from app.routers import generate
 
 app = FastAPI(root_path="/", docs_url="/docs")
 
+app.add_middleware(HTTPSRedirectMiddleware)
+
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
@@ -16,7 +18,6 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    HTTPSRedirectMiddleware,
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
