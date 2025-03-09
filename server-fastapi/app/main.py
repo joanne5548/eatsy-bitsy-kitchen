@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
+
 from app.routers import generate
 
-app = FastAPI(root_path="/", docs_url="/docs")
+app = FastAPI()
 
-app.add_middleware(HTTPSRedirectMiddleware)
+# app.add_middleware(HTTPSRedirectMiddleware)
 
 origins = [
     "http://localhost:5173",
@@ -24,8 +25,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/", tags=["root"])
 async def read_root() -> dict:
     return {"message": "Welcome to fast api!"}
 
+
 app.include_router(generate.router)
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
